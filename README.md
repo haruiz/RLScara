@@ -1,10 +1,10 @@
-# INFO
-## Dependencies
+## INFO
+### Dependencies
 - to be added
 
-## Installation
+### Installation
 - to be added
 
-# LOGS
-## 09/28/22
+## LOGS
+### 09/28/22
 - added repo

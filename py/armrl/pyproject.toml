@@ -1,10 +1,9 @@
 [tool.poetry]
-name = "rl-project"
+name = "armrl"
 version = "0.1.0"
 description = ""
 authors = ["Henry Ruiz  <henryruiz22@gmail.com>"]
 readme = "README.md"
-packages = [{include = "rl_project"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
@@ -14,7 +13,10 @@ gym = "0.23"
 tf-agents = "^0.14.0"
 tensorflow = "^2.11.0"
 pyglet = "1.5.27"
+pyserial = "^3.5"
 
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
 
 [build-system]
 requires = ["poetry-core"]

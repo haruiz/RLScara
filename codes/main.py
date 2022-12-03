@@ -50,11 +50,18 @@ def eval():
     rl.restore()
     env.render()
     env.viewer.set_vsync(True)
-    s = env.reset()
+    s = env.setenv()
+    r1 = 0
+    r2 = 0
     while True:
         env.render()
         a = rl.choose_action(s)
+        r1 += a[0]
+        r2 += a[1]
+        #print(a)
         s, r, done = env.step(a)
+        if(done):
+            print(r1,r2)
 
 
 if ON_TRAIN:

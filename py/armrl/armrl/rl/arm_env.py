@@ -20,27 +20,31 @@ def deg2rad(deg):
 
 class ArmLink(object):
     """Arm link class"""
-    def __init__(self, length, width, color, angle=0, origin=None, parent=None):
+    def __init__(self, length, width, color, angle=0, origin=None, parent=None, constraints=[0,math.pi]):
         self.length = length
         self.width = width
         self.color = color
         self._angle = angle
         self.origin = origin or Point2D(0, 0)
         self.parent = parent
+        self._gangle = self.get_offset_angle(angle)
+        self.constraints = constraints
 
 
     @property
     def endpoint(self):
-        return self.point_at(self.angle)
+        return self.point_at(self.global_angle)
 
     @property
     def global_angle(self):
-        raise NotImplementedError
+        return self._gangle
 
 
     @global_angle.setter
     def global_angle(self, angle):
-        raise NotImplementedError
+        tmp = self.remove_offset_angle(angle)
+        self._angle = max(min(self.constraints[1], tmp), self.constraints[0])
+        self._gangle = self.get_offset_angle(self._angle)
 
     @property
     def angle(self):
@@ -48,20 +52,25 @@ class ArmLink(object):
 
     @angle.setter
     def angle(self, angle):
-        self._angle = self.get_offset_angle(angle)
+        print(angle)
+        self._angle = max(min(self.constraints[1], angle), self.constraints[0])
+        self._gangle = self.get_offset_angle(self._angle)
 
     def get_offset_angle(self, angle):
         # computes the offset
         # from the parent and returns
-        if self.parent:
-            offset = angle - self.parent.angle - math.pi/2
+        if self.parent is not None:
+            offset = angle - math.pi/2 + self.parent.global_angle
             return offset % (2*math.pi)
         else:
             return angle
 
     def remove_offset_angle(self, angle):
         if self.parent:
-            offset = angle - self.parent.angle - math.pi/2
+            offset = angle - self.parent.global_angle + math.pi/2
+            return offset % (2*math.pi)
+        else:
+            return angle
 
     def angle_to(self, point):
         """
@@ -89,7 +98,8 @@ class ArmLink(object):
         :param point:
         :return:
         """
-        end = self.point_at(self.angle)
+        point = Point2D(point[0],point[1])
+        end = self.point_at(self.global_angle)
         return math.sqrt((point.x - end.x) ** 2 + (point.y - end.y) ** 2)
 
     def draw_axis(self):
@@ -121,8 +131,8 @@ class ArmLink(object):
         """
         if self.parent:
             # X = (xcosθ + ysinθ) and and Y = (−xsinθ+ycosθ).
-            self.origin = self.parent.point_at(self.parent.angle)
-        look_at = self.point_at(self.angle)
+            self.origin = self.parent.point_at(self.parent.global_angle)
+        look_at = self.point_at(self.global_angle)
         pyglet.gl.glLineWidth(self.width)
         pyglet.graphics.draw(2, pyglet.gl.GL_LINES, ('v2f', (self.origin.x, self.origin.y, look_at.x, look_at.y)), ('c3B', self.color * 2))
         self.draw_grid()
@@ -175,6 +185,12 @@ class Arm(object):
         for i, angle in enumerate(angles):
             self[i].angle = deg2rad(angle)
 
+    def get_observation(self):
+        return [rad2deg(link.angle) for link in self.links]
+
+    def get_reward(self, goal):
+        return -self.head().distance_to(goal)
+
     def __getitem__(self, item):
         return self.links[item] if item < len(self.links) else None
 
@@ -203,11 +219,11 @@ class ArmSimViewer(pyglet.window.Window):
 
         self.arm.add_link(100,(255, 0, 0))
         self.arm.add_link(100,(0, 255, 0))
-        self.arm.add_link(100,(0, 0, 255))
+        #self.arm.add_link(100,(0, 0, 255))
         #self.arm.add_link(100, (0, 255, 0))
         #self.arm.add_link(100, (0, 0, 255))
 
-        self.arm.set_angles(0, 45, 90)
+        self.arm.set_angles(90, 90)
 
         self.target = ArmTarget(Point2D(300, 300), (0, 0, 255))
 
@@ -223,7 +239,7 @@ class ArmSimViewer(pyglet.window.Window):
         head = self.arm.head()
         if head:
             pyglet.gl.glLineWidth(1)
-            pt = head.point_at(head.angle)
+            pt = head.point_at(head.global_angle)
             pyglet.graphics.draw(2, pyglet.gl.GL_LINES, ('v2f', (pt.x, pt.y, point.x, point.y)), ('c3B', (255, 255, 255) * 2))
 
     def on_draw(self):
@@ -239,10 +255,10 @@ class ArmSimViewer(pyglet.window.Window):
 
 
     def on_mouse_motion(self, x, y, dx, dy):
-        # self.arm.head().angle = self.arm.head().angle_to(Point2D(x, y))
+        self.arm.head().global_angle = self.arm.head().angle_to(Point2D(x, y))
         self.target.origin = Point2D(x, y)
 
-        print(self.arm.head().endpoint)
+        print(self.arm.get_observation(),'-----',self.arm.get_reward([x,y]))
 
 
 if __name__ == "__main__":

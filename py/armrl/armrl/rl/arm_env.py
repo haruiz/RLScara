@@ -9,6 +9,9 @@ class Point2D(object):
         self.x = x
         self.y = y
 
+    def __repr__(self):
+        return f"({self.x}, {self.y})"
+
 def rad2deg(rad):
     return rad * 180 / math.pi
 
@@ -25,6 +28,19 @@ class ArmLink(object):
         self.origin = origin or Point2D(0, 0)
         self.parent = parent
 
+
+    @property
+    def endpoint(self):
+        return self.point_at(self.angle)
+
+    @property
+    def global_angle(self):
+        raise NotImplementedError
+
+
+    @global_angle.setter
+    def global_angle(self, angle):
+        raise NotImplementedError
 
     @property
     def angle(self):
@@ -54,6 +70,9 @@ class ArmLink(object):
         :return:
         """
         return self.get_offset_angle(math.atan2(point.y - self.origin.y, point.x - self.origin.x))+math.pi
+
+
+    # X=(xcosθ+ysinθ) and and Y=(−xsinθ+ycosθ).
 
     def point_at(self, angle):
         """
@@ -101,8 +120,8 @@ class ArmLink(object):
         :return:
         """
         if self.parent:
+            # X = (xcosθ + ysinθ) and and Y = (−xsinθ+ycosθ).
             self.origin = self.parent.point_at(self.parent.angle)
-
         look_at = self.point_at(self.angle)
         pyglet.gl.glLineWidth(self.width)
         pyglet.graphics.draw(2, pyglet.gl.GL_LINES, ('v2f', (self.origin.x, self.origin.y, look_at.x, look_at.y)), ('c3B', self.color * 2))
@@ -180,7 +199,7 @@ class ArmSimViewer(pyglet.window.Window):
         super(ArmSimViewer, self).__init__(
             width=600, height=600, resizable=True, caption="Arm", vsync=False
         )
-        self.arm = Arm(Point2D(100,100), link_width=20)
+        self.arm = Arm(self.center(), link_width=20)
 
         self.arm.add_link(100,(255, 0, 0))
         self.arm.add_link(100,(0, 255, 0))
@@ -220,8 +239,10 @@ class ArmSimViewer(pyglet.window.Window):
 
 
     def on_mouse_motion(self, x, y, dx, dy):
-        self.arm.head().angle = self.arm.head().angle_to(Point2D(x, y))
+        # self.arm.head().angle = self.arm.head().angle_to(Point2D(x, y))
         self.target.origin = Point2D(x, y)
+
+        print(self.arm.head().endpoint)
 
 
 if __name__ == "__main__":

@@ -32,7 +32,20 @@ class ArmLink(object):
 
     @angle.setter
     def angle(self, angle):
-        self._angle = angle
+        self._angle = self.get_offset_angle(angle)
+
+    def get_offset_angle(self, angle):
+        # computes the offset
+        # from the parent and returns
+        if self.parent:
+            offset = angle - self.parent.angle - math.pi/2
+            return offset % (2*math.pi)
+        else:
+            return angle
+
+    def remove_offset_angle(self, angle):
+        if self.parent:
+            offset = angle - self.parent.angle - math.pi/2
 
     def angle_to(self, point):
         """
@@ -40,7 +53,7 @@ class ArmLink(object):
         :param point:
         :return:
         """
-        return math.atan2(point.y - self.origin.y, point.x - self.origin.x)
+        return self.get_offset_angle(math.atan2(point.y - self.origin.y, point.x - self.origin.x))+math.pi
 
     def point_at(self, angle):
         """
@@ -48,6 +61,7 @@ class ArmLink(object):
         :param angle:
         :return:
         """
+        #angle = self.remove_offset_angle()
         return Point2D(self.origin.x + self.length * math.cos(angle), self.origin.y + self.length * math.sin(angle))
 
     def distance_to(self, point):
@@ -171,10 +185,10 @@ class ArmSimViewer(pyglet.window.Window):
         self.arm.add_link(100,(255, 0, 0))
         self.arm.add_link(100,(0, 255, 0))
         self.arm.add_link(100,(0, 0, 255))
-        self.arm.add_link(100, (0, 255, 0))
-        self.arm.add_link(100, (0, 0, 255))
+        #self.arm.add_link(100, (0, 255, 0))
+        #self.arm.add_link(100, (0, 0, 255))
 
-        self.arm.set_angles(90, 100, 70, 45, 90)
+        self.arm.set_angles(0, 45, 90)
 
         self.target = ArmTarget(Point2D(300, 300), (0, 0, 255))
 

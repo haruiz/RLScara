@@ -1,5 +1,5 @@
 import math
-import numpy as np
+
 import pyglet
 from pyglet import shapes
 
@@ -29,7 +29,7 @@ class ArmLink(object):
         self.parent = parent
         self._gangle = self.get_offset_angle(angle)
         self.constraints = constraints
-        
+
 
     @property
     def endpoint(self):
@@ -144,12 +144,7 @@ class Arm(object):
         self.origin = origin
         self.links = []
         self.link_width = link_width
-        self.goal_len = 30
-        self.gloal = [500,500,self.goal_len]
-        self.on_goal = 0
-        self.state_dim = 9
-        self.action_dim = 2
-        self.action_bound=[0,math.pi]
+
 
     def head(self):
         return self.links[-1] if len(self.links) > 0 else None
@@ -169,9 +164,6 @@ class Arm(object):
             self.links.append(ArmLink(length, self.link_width, color, origin=self.origin))
         else:
             self.links.append(ArmLink(length, self.link_width, color, parent=self.links[-1]))
-
-        self.action_dim = len(links)
-        self.state_dim = 4*self.action_dim + 1 # total number of observations
 
 
     def draw(self):
@@ -193,51 +185,11 @@ class Arm(object):
         for i, angle in enumerate(angles):
             self[i].angle = deg2rad(angle)
 
-    def get_observation(self,goal):
-        observation = []
-        for link in self.links:
-            observation.append(link.endpoint.x)
-            observation.append(link.endpoint.y)
-        
-        for link in self.links:
-            observation.append(goal[0]-link.endpoint.x)
-            observation.append(goal[1]-link.endpoint.y)
-
+    def get_observation(self):
+        return [rad2deg(link.angle) for link in self.links]
 
     def get_reward(self, goal):
         return -self.head().distance_to(goal)
-
-
-    def step(self, action):
-        done = False
-        for i in range(len(action)):
-            self.links[i].angle = action[i]
-
-        r = self.get_reward(self.goal)
-
-        # done and reward
-        if self.goal[0] - self.goal[2]/2 < self.head().x < self.goal[0] + self.goal[2]/2:
-            if self.goal[1] - self.goal[2]/2 < self.head().y < self.goal[1] + self.goal[2]/2:
-                r += 1.
-                self.on_goal += 1
-                if self.on_goal > 50:       # if it is over the goal for 50 times
-                    done = True
-        else:
-            self.on_goal = 0
-
-        s = np.concatenate((get_observation(self.goal), [1. if self.on_goal else 0.]))
-
-        return s, r, done
-
-    def reset(self):
-        self.goal = [np.random.rand()*400.,np.random.rand()*400.,self.goal_len]
-        self.on_goal = 0
-
-        for link in self.links:
-            link.angle = math.pi * np.random.rand(1)[0]
-
-        s = np.concatenate((get_observation(self.goal), [1. if self.on_goal else 0.]))
-        return s
 
     def __getitem__(self, item):
         return self.links[item] if item < len(self.links) else None

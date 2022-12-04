@@ -43,8 +43,17 @@ class ArmLink(object):
     @global_angle.setter
     def global_angle(self, angle):
         tmp = self.remove_offset_angle(angle)
-        self._angle = max(min(self.constraints[1], tmp), self.constraints[0])
+        if tmp<self.constraints[0]:
+            tmp = self.constraints[0]
+        if tmp>self.constraints[1]:
+            tmp = self.constraints[1]
+        self._angle = tmp
         self._gangle = self.get_offset_angle(self._angle)
+
+        #update the origin position
+        if self.parent:
+            # X = (xcosθ + ysinθ) and and Y = (−xsinθ+ycosθ).
+            self.origin = self.parent.point_at(self.parent.global_angle)
 
     @property
     def angle(self):
@@ -52,9 +61,19 @@ class ArmLink(object):
 
     @angle.setter
     def angle(self, angle):
-        print(angle)
-        self._angle = max(min(self.constraints[1], angle), self.constraints[0])
+        #print(angle)
+        if angle<self.constraints[0]:
+            angle = self.constraints[0]
+        if angle>self.constraints[1]:
+            angle = self.constraints[1]
+
+        self._angle = angle
         self._gangle = self.get_offset_angle(self._angle)
+
+        #update the origin position
+        if self.parent:
+            # X = (xcosθ + ysinθ) and and Y = (−xsinθ+ycosθ).
+            self.origin = self.parent.point_at(self.parent.global_angle)
 
     def get_offset_angle(self, angle):
         # computes the offset
@@ -78,7 +97,7 @@ class ArmLink(object):
         :param point:
         :return:
         """
-        return self.get_offset_angle(math.atan2(point.y - self.origin.y, point.x - self.origin.x))+math.pi
+        return math.atan2(point.y - self.origin.y, point.x - self.origin.x)
 
 
     # X=(xcosθ+ysinθ) and and Y=(−xsinθ+ycosθ).
@@ -140,16 +159,19 @@ class ArmLink(object):
 
 
 class Arm(object):
-    def __init__(self, origin, link_width=1):
+    def __init__(self, origin,env_size, link_width=1, goal=None):
         self.origin = origin
         self.links = []
         self.link_width = link_width
         self.goal_len = 30
-        self.gloal = [500,500,self.goal_len]
+        self.gloal = goal if goal else [500,500,self.goal_len]
         self.on_goal = 0
         self.state_dim = 9
         self.action_dim = 2
-        self.action_bound=[0,math.pi]
+        self.action_bound=[-1,+1]
+        self.env_size = env_size
+        self.step_size = 0.05 # granularity
+
 
     def head(self):
         return self.links[-1] if len(self.links) > 0 else None
@@ -170,7 +192,7 @@ class Arm(object):
         else:
             self.links.append(ArmLink(length, self.link_width, color, parent=self.links[-1]))
 
-        self.action_dim = len(links)
+        self.action_dim = len(self.links)
         self.state_dim = 4*self.action_dim + 1 # total number of observations
 
 
@@ -196,28 +218,29 @@ class Arm(object):
     def get_observation(self,goal):
         observation = []
         for link in self.links:
-            observation.append(link.endpoint.x)
-            observation.append(link.endpoint.y)
+            observation.append(link.endpoint.x/self.env_size.x) #normalize
+            observation.append(link.endpoint.y/self.env_size.y) #normalize
         
         for link in self.links:
-            observation.append(goal[0]-link.endpoint.x)
-            observation.append(goal[1]-link.endpoint.y)
+            observation.append((goal[0]-link.endpoint.x)/self.env_size.x)   #normalize
+            observation.append((goal[1]-link.endpoint.y)/self.env_size.y)   #normalize
 
+        return observation
 
     def get_reward(self, goal):
-        return -self.head().distance_to(goal)
+        return -self.head().distance_to(goal)/max(self.env_size.x,self.env_size.y)
 
 
     def step(self, action):
         done = False
         for i in range(len(action)):
-            self.links[i].angle = action[i]
+            self.links[i].angle += np.clip(action[i],-1,1)*self.step_size
 
         r = self.get_reward(self.goal)
 
         # done and reward
-        if self.goal[0] - self.goal[2]/2 < self.head().x < self.goal[0] + self.goal[2]/2:
-            if self.goal[1] - self.goal[2]/2 < self.head().y < self.goal[1] + self.goal[2]/2:
+        if self.goal[0] - self.goal[2]/2 < self.head().endpoint.x < self.goal[0] + self.goal[2]/2:
+            if self.goal[1] - self.goal[2]/2 < self.head().endpoint.y < self.goal[1] + self.goal[2]/2:
                 r += 1.
                 self.on_goal += 1
                 if self.on_goal > 50:       # if it is over the goal for 50 times
@@ -225,19 +248,50 @@ class Arm(object):
         else:
             self.on_goal = 0
 
-        s = np.concatenate((get_observation(self.goal), [1. if self.on_goal else 0.]))
+        observations = self.get_observation(self.goal)
+        s = np.concatenate((observations, [1. if self.on_goal else 0.]))
 
         return s, r, done
 
     def reset(self):
-        self.goal = [np.random.rand()*400.,np.random.rand()*400.,self.goal_len]
-        self.on_goal = 0
+        # set the goal approximately withing the arm's range
+        while(1):
+            self.goal = [np.random.rand()*self.env_size.x,np.random.rand()*self.env_size.y,self.goal_len]
+            if math.sqrt((self.goal[0]-self.origin.x)**2+(self.goal[1]-self.origin.y)**2)> self.links[0].length:
+                break
+        
+        # check if on goal
+        if self.goal[0] - self.goal[2]/2 < self.head().endpoint.x < self.goal[0] + self.goal[2]/2:
+            if self.goal[1] - self.goal[2]/2 < self.head().endpoint.y < self.goal[1] + self.goal[2]/2:
+                self.on_goal = 1
+        else:
+            self.on_goal = 0
 
-        for link in self.links:
+        for link in self.links: # randomize arm angles
             link.angle = math.pi * np.random.rand(1)[0]
 
-        s = np.concatenate((get_observation(self.goal), [1. if self.on_goal else 0.]))
+        observations = self.get_observation(self.goal)
+
+        s = np.concatenate((observations, [1. if self.on_goal else 0.]))
         return s
+
+    def setenv(self,goal):
+        
+        self.goal = goal
+        # check if on goal
+        if self.goal[0] - self.goal[2]/2 < self.head().endpoint.x < self.goal[0] + self.goal[2]/2:
+            if self.goal[1] - self.goal[2]/2 < self.head().endpoint.y < self.goal[1] + self.goal[2]/2:
+                self.on_goal = 1
+        else:
+            self.on_goal = 0
+
+        #for link in self.links: # randomize arm angles
+        #    link.angle = math.pi * np.random.rand(1)[0]
+
+        observations = self.get_observation(self.goal)
+
+        s = np.concatenate((observations, [1. if self.on_goal else 0.]))
+        return s 
 
     def __getitem__(self, item):
         return self.links[item] if item < len(self.links) else None
@@ -259,22 +313,17 @@ class ArmTarget(object):
 
 
 class ArmSimViewer(pyglet.window.Window):
-    def __init__(self):
+    def __init__(self, arm, model):
         super(ArmSimViewer, self).__init__(
-            width=600, height=600, resizable=True, caption="Arm", vsync=False
+            width=300, height=300, resizable=True, caption="Arm", vsync=False
         )
-        self.arm = Arm(self.center(), link_width=20)
-
-        self.arm.add_link(100,(255, 0, 0))
-        self.arm.add_link(100,(0, 255, 0))
-        #self.arm.add_link(100,(0, 0, 255))
-        #self.arm.add_link(100, (0, 255, 0))
-        #self.arm.add_link(100, (0, 0, 255))
-
-        self.arm.set_angles(90, 90)
-
-        self.target = ArmTarget(Point2D(300, 300), (0, 0, 255))
-
+        
+        self.arm = arm
+        self.env_size = arm.env_size # max spawn of the arm
+        self.model = model
+        arm.set_angles(0,90)
+        self.target = ArmTarget(Point2D(150, 150), (0, 0, 255))
+       
     def center(self):
         return Point2D(self.width / 2, self.height / 2)
 
@@ -303,10 +352,25 @@ class ArmSimViewer(pyglet.window.Window):
 
 
     def on_mouse_motion(self, x, y, dx, dy):
-        self.arm.head().global_angle = self.arm.head().angle_to(Point2D(x, y))
-        self.target.origin = Point2D(x, y)
+        #self.arm.head().global_angle = self.arm.head().angle_to(Point2D(x, y))
+        #self.target.origin = Point2D(x, y)
+        goal = [x, y, self.arm.goal_len]
+        self.target.origin = Point2D(x,y)
+        s = self.arm.setenv(goal)
+        tolerance_counter = 0
+        max_steps = 200
+        while True:
+            a = self.model.choose_action(s)
+            s, r, done = self.arm.step(a)
 
-        print(self.arm.get_observation(),'-----',self.arm.get_reward([x,y]))
+            tolerance_counter += 1
+
+            if done or tolerance_counter>max_steps:    # check if reached or saturated
+                print('reward:',r)
+                for i, link in enumerate(self.arm.links):
+                    print('angle of link ',i,rad2deg(link.angle))
+                break
+
 
 
 if __name__ == "__main__":

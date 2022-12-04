@@ -48,7 +48,10 @@ class SerialPort:
         """
         Returns a list of available serial ports
         """
-        return [port.device for port in serial.tools.list_ports.grep("USB")]
+        available_ports = [port.device for port in serial.tools.list_ports.grep("USB")]
+        if len(available_ports) == 0:
+            raise Exception("No serial ports available.")
+        return available_ports
 
 
 if __name__ == "__main__":

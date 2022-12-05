@@ -95,7 +95,8 @@ def render():
     pyglet.app.run()
 
 
-if ON_TRAIN:
-    train()
-else:
-    render()
+if __name__ == '__main__':
+    if ON_TRAIN:
+        train()
+    else:
+        render()

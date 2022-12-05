@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "armrl"
+version = "0.1.0"
+description = ""
+authors = ["Henry Ruiz  <henryruiz22@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+numpy = "^1.23.5"
+matplotlib = "^3.6.2"
+gym = "0.23"
+tf-agents = "^0.14.0"
+tensorflow = "^2.11.0"
+pyglet = "1.5.27"
+pyserial = "^3.5"
+urdfpy = "^0.0.22"
+pandas = "^1.5.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
+pdoc = "^12.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -15,7 +15,7 @@ void setup() {
   Serial.setTimeout(100);
   link1.attach(8);
   link2.attach(9);
-  link1.write(90);
+  link1.write(0);
   link2.write(90);
 }
 

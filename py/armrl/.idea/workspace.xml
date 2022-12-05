@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="69f9d827-cfbf-4950-ae91-b04590db83f9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../final_code/.idea/final_code.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../final_code/arduino_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../final_code/arm_rl_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../arduino/arm_sketchs/control-sketch/control-sketch.ino" beforeDir="false" afterPath="$PROJECT_DIR$/../../arduino/arm_sketchs/control-sketch/control-sketch.ino" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../final_code/.python-version" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../final_code/arm_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/arm_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../final_code/arm_env_back.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../final_code/env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../final_code/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../final_code/params.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/params.data-00000-of-00001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../final_code/params.index" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/params.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../final_code/rl.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../final_code/urdfloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/urdfloader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/armrl.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/plot_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/core/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/core/arm_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/arm_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/gui/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/rl/.python-version" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/rl/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/rl/arm_env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/rl/arm_env2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/rl/arm_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/utils/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/armrl/utils/serial_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../../final_code/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/checkpoint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/params.data-00000-of-00001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/params.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/rl.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/serialutils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/train.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/../scripts/urdfloader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/config/joint_names_assembly.SLDASM.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/export.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/launch/display.launch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/launch/gazebo.launch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/meshes/base_link.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/meshes/link1.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/meshes/link2.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/package.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/urdf/assembly.SLDASM.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/urdf/assembly.SLDASM.urdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/urdfs/urdf/assembly.SLDASM/assembly.SLDASM.usd" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2IQIFrf1GlHzomX8y49jSs68E4O" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/haruiz/Workspace/rl-project/py/armrl",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  }
+}]]></component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="arm_env" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="armrl" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/armrl/rl" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/armrl/rl/arm_env.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="arm_env2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="armrl" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/armrl/rl" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/armrl/rl/arm_env2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="armrl" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.arm_env2" />
+        <item itemvalue="Python.arm_env" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="69f9d827-cfbf-4950-ae91-b04590db83f9" name="Changes" comment="" />
+      <created>1670107279200</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1670107279200</updated>
+      <workItem from="1670107280340" duration="3002000" />
+      <workItem from="1670124054725" duration="16308000" />
+      <workItem from="1670143179093" duration="10093000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/armrl$main.coverage" NAME="main Coverage Results" MODIFIED="1670170701369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/armrl$arm_env2.coverage" NAME="arm_env2 Coverage Results" MODIFIED="1670147852094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/armrl/rl" />
+    <SUITE FILE_PATH="coverage/armrl$arm_controller.coverage" NAME="arm_controller Coverage Results" MODIFIED="1670107800879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/armrl/core" />
+    <SUITE FILE_PATH="coverage/armrl$arm_env.coverage" NAME="arm_env Coverage Results" MODIFIED="1670147592675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/armrl/rl" />
+  </component>
+</project>

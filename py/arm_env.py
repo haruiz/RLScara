@@ -500,9 +500,9 @@ class ArmSimViewer(pyglet.window.Window):
         Updates the arm controller.
         """
         if self.target_coords:
-            with ArmController() as arm_controller:
-                if arm_controller.is_connected():
-                    arm_controller.move_to(*self.target_coords)
+            # with ArmController() as arm_controller:
+            #     if arm_controller.is_connected():
+            #         arm_controller.move_to(*self.target_coords)
             self.target_coords = None
 
     def get_predicted_action(self, target_x, target_y):

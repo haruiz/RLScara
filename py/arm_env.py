@@ -245,7 +245,8 @@ class Arm(object):
     def tail(self):
         """returns the first link of the arm"""
         return self.links[0] if len(self.links) > 0 else None
-
+    
+    
     def add_link(self, length: int, color: tuple = (255, 255, 255)):
         """
         Adds a link to the arm.
@@ -440,7 +441,7 @@ class ArmSimViewer(pyglet.window.Window):
     Pyglet based simulation viewer.
     """
 
-    def __init__(self, arm: Arm, model: "DDPG", env_size: Size2D, *args, **kwargs):
+    def __init__(self, arm: Arm, model: "DDPG" = None, env_size: Size2D = Size2D(300,300), *args, **kwargs):
         config = pyglet.gl.Config(sample_buffers=1, samples=8, double_buffer=False)
         super(ArmSimViewer, self).__init__(
             width=env_size.width,
@@ -536,6 +537,8 @@ class ArmSimViewer(pyglet.window.Window):
             if self.target is None:
                 self.target = ArmTarget(Point2D(x, y), color=(255, 0, 0))
             self.target.origin = Point2D(x, y)
-            self.target_coords = self.get_predicted_action(x, y)
-            self.arm.set_angles(*self.target_coords)
 
+            if self.model:
+                self.target_coords = self.get_predicted_action(x, y)
+                self.arm.set_angles(*self.target_coords)
+            

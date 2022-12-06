@@ -22,7 +22,7 @@ We designed a scara robot using Solidworks. The links are designed in such a way
 ![robot setup](./media/images/robot.jpeg)
 
 ### 2D simulated - Scara Robot Platform
-For this project, we have also developed a digital twin of the scar robot platform to visualize and evaluate how the model performs in a virtual environment. Users can arbitrarily customize and dynamically add links to the robot arm and customize the angle boundaries for each connection. The simulation environment was developed using `pyglet`. 
+For this project, we have also developed a digital twin environment of the Scara robot platform. It allow us to visualize and evaluate how the model performs in a virtual environment. Users can arbitrarily customize and dynamically add links to the robot arm and customize the angle boundaries for each connection. The simulation environment was developed using `pyglet`. 
 
 **Note:** To add a target object or move it around the environment, click with the mouse at any location
 

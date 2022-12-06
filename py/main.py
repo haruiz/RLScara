@@ -5,6 +5,7 @@ from arm_rl_model import DDPG
 from color_utils import ColorUtils
 from math_utils import *
 from plot_utils import plot_episode_stats
+import random
 import typer
 
 # ****** parameters ******#
@@ -14,6 +15,7 @@ N_LINKS = 2
 LINK_LENGTH = 100
 MAX_EPISODES = 900
 MAX_EP_STEPS = 300
+
 
 # ****** arm setup ******#
 env = Arm(ARM_ORIGIN, env_size=ENV_SIZE, link_width=10)
@@ -68,6 +70,7 @@ def train():
         steps_list,
         reward_values,
         title=f"DDPG on Arm Environment: N-links {len(env.links)}, Env Size: {ENV_SIZE.width} * {ENV_SIZE.height}",
+        output_file=f"plots/n_links_{len(env.links)}_env_size_{ENV_SIZE.width}X{ENV_SIZE.height}.png"
     )
 
 
@@ -105,6 +108,28 @@ def render():
     """
     rl_model.restore()
     ArmSimViewer(env, rl_model, ENV_SIZE)
+    pyglet.app.run()
+
+@app.command()
+def sim():
+
+    ENV_SIZE = Size2D(600, 600)
+    ARM_ORIGIN = Point2D(ENV_SIZE.width / 2, 0)
+    N_LINKS = 10
+    LINK_LENGTH = 40
+
+    env = Arm(ARM_ORIGIN, env_size=ENV_SIZE, link_width=10)
+    colors_dict = ColorUtils.rainbow(n=N_LINKS)
+    R = colors_dict["r"]
+    G = colors_dict["g"]
+    B = colors_dict["b"]
+    rainbow_colors = list(zip(B, G, R))
+    for i in range(N_LINKS):
+        env.add_link(LINK_LENGTH, rainbow_colors[i])
+    env.set_angles(*len(env.links) * [0])
+
+    ArmSimViewer(arm=env, env_size=ENV_SIZE, model=None)
+    env.set_angles(90,45,45,180,90,180,45,45,180,90)
     pyglet.app.run()
 
 

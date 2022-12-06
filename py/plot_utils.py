@@ -9,6 +9,7 @@ def plot_episode_stats(
     episode_rewards: typing.List,
     smoothing_window: int = 10,
     title: str = "Episode Statistics",
+    output_file: str = "plot.png"
 ):
     """
     Plot the episode length over time
@@ -40,5 +41,5 @@ def plot_episode_stats(
     )
 
     plt.suptitle(title)
-    fig.savefig("plot.png")
+    fig.savefig(output_file)
     plt.show()

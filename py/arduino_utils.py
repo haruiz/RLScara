@@ -95,7 +95,8 @@ class SerialPort:
 
 
 if __name__ == "__main__":
-    with SerialPort(SerialPort.default, 9600, 1) as port:
+    print(SerialPort.available_ports())
+    with SerialPort("/dev/cu.usbmodem141112401", 9600, 1) as port:
         if port.is_open():
             port.write("90,90")
             print(port.readline())

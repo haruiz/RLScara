@@ -1,9 +1,11 @@
-## INFO
+## RL Project
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![TensorFlow 2.2](https://img.shields.io/badge/TensorFlow-2.^-FF6F00?logo=tensorflow)](https://github.com/tensorflow/tensorflow/releases/tag/v2.2.0)
 
+
+[![Watch the video](https://img.youtube.com/vi/vW3J3VzC5Ac/maxresdefault.jpg)](https://youtu.be/vW3J3VzC5Ac)
 
 ### Description
 
@@ -39,7 +41,7 @@ All the documentation can be found here: [docs](https://haruiz.github.io/rl-proj
 
     - `arduino_utils.py` : Arduino utils, it contains some functions and classes to control the Arduino board.
     - `math_utils.py` : Math utils, it contains some functions and classes to perform some math operations.
-    - `plot_utils.py` : Plot utils, it contains some functions and classes to plot the results.
+    - `plot_utils.py` : Plot utils, it contains some functions and classes to plot the training results.
 
 ### Installation
 
@@ -50,6 +52,7 @@ For running the app, we recommend creating a virtual environment. The dependenci
 To install the dependencies using `pip`.
 
 ```bash
+cd py
 pip install -r requirements.txt
 ```
 
@@ -89,4 +92,14 @@ LINK_LENGTH = 100
 MAX_EPISODES = 900
 MAX_EP_STEPS = 300
 ```
+
+## Group Members
+
+<a href="https://github.com/abulalarabi">
+  <img src = "https://github.com/abulalarabi.png?size=50" target="_blank" style="border-radius: 50%;" />
+</a>
+<a href="https://github.com/haruiz" >
+  <img src = "https://github.com/haruiz.png?size=50" target="_blank" style="border-radius: 50%;"/>
+</a>
+
 

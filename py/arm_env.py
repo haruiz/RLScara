@@ -185,24 +185,6 @@ class ArmLink(object):
             )
 
 
-    def draw_angles(self):
-        """
-        Draws the arm link angles.
-        :return:
-        """
-        pyglet.gl.glLineWidth(1)
-        pyglet.graphics.draw(
-            2,
-            pyglet.gl.GL_LINES,
-            ("v2f", (self.origin.x, self.origin.y, self.origin.x + 100, self.origin.y)),
-            ("c3B", (255, 0, 0) * 2),
-        )
-        pyglet.graphics.draw(
-            2,
-            pyglet.gl.GL_LINES,
-            ("v2f", (self.origin.x, self.origin.y, self.origin.x, self.origin.y + 100)),
-            ("c3B", (0, 255, 0) * 2),
-        )
 
     def draw(self):
         """
@@ -221,7 +203,6 @@ class ArmLink(object):
             ("c3B", self.color * 2),
         )
         
-        self.draw_angles()
         if DEBUG:
             self.draw_grid()
             self.draw_axis()
@@ -522,7 +503,7 @@ class ArmSimViewer(pyglet.window.Window):
         Updates the arm controller.
         """
         if self.target_coords:
-            # with ArmController() as arm_controller:
+            # with ArmController(port="/dev/cu.usbmodem141112401") as arm_controller:
             #     if arm_controller.is_connected():
             #         arm_controller.move_to(*self.target_coords)
             self.target_coords = None

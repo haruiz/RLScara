@@ -15,10 +15,15 @@ In addition, in order to test our model in the real world, we designed and devel
 
 Our Scara robot consists of cascadable joints, which means the joints can be repeated to increase the degrees of freedom. We have tested the system with a Scara robot consisting of 2 links and two independent joints.
 
-### Arduino based Arm Platform
+### Arduino based - Scara Robot Platform
 
+We designed a scara robot using Solidworks. The links are designed in such a way so that they can be cascaded on demand. Hence, the links are modular and can be chained, thus, increasing and decreasing the degrees of freedom is easy to attain with such a structure. The length of each link is 150mm. However, our parametric design approach enables to change the length before 3D printing. Each of the links can have one or two joints. If a link is parent of another link, then it has two joints, else one. The joints are revolute joints with a [0,pi] range of angle.
 
-### 2D simulated Arm Platform
+![robot setup](./media/images/robot.jpeg)
+
+### 2D simulated - Scara Robot Platform
+
+![Digital Twin](./media/images/env.png)
 
 
 All the documentation can be found here: [docs](https://haruiz.github.io/rl-project)
@@ -49,7 +54,7 @@ For running the app, we recommend creating a virtual environment. The dependenci
 
 - Using pip
 
-To install the dependencies using `pip`.
+run the command.
 
 ```bash
 cd py

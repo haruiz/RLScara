@@ -538,3 +538,4 @@ class ArmSimViewer(pyglet.window.Window):
             self.target.origin = Point2D(x, y)
             self.target_coords = self.get_predicted_action(x, y)
             self.arm.set_angles(*self.target_coords)
+

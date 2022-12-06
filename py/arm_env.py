@@ -184,6 +184,26 @@ class ArmLink(object):
                 ("c3B", (255, 255, 255) * 2),
             )
 
+
+    def draw_angles(self):
+        """
+        Draws the arm link angles.
+        :return:
+        """
+        pyglet.gl.glLineWidth(1)
+        pyglet.graphics.draw(
+            2,
+            pyglet.gl.GL_LINES,
+            ("v2f", (self.origin.x, self.origin.y, self.origin.x + 100, self.origin.y)),
+            ("c3B", (255, 0, 0) * 2),
+        )
+        pyglet.graphics.draw(
+            2,
+            pyglet.gl.GL_LINES,
+            ("v2f", (self.origin.x, self.origin.y, self.origin.x, self.origin.y + 100)),
+            ("c3B", (0, 255, 0) * 2),
+        )
+
     def draw(self):
         """
         Draws the arm link.
@@ -200,9 +220,12 @@ class ArmLink(object):
             ("v2f", (self.origin.x, self.origin.y, look_at.x, look_at.y)),
             ("c3B", self.color * 2),
         )
+        
+        self.draw_angles()
         if DEBUG:
             self.draw_grid()
             self.draw_axis()
+        
 
 
 class Arm(object):
@@ -442,7 +465,7 @@ class ArmSimViewer(pyglet.window.Window):
             width=env_size.width,
             height=env_size.height,
             resizable=True,
-            # config=config,
+            config=config,
             caption="Arm",
             *args,
             **kwargs,
@@ -456,7 +479,6 @@ class ArmSimViewer(pyglet.window.Window):
         self.arm = arm
         self.env_size = arm.env_size  # max spawn of the arm
         self.model = model
-        arm.set_angles(0, 90)
         self.target = None
         self.target_coords = None
 

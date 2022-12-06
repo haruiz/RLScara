@@ -16,6 +16,7 @@ pyglet = "1.5.27"
 pyserial = "^3.5"
 urdfpy = "^0.0.22"
 pandas = "^1.5.2"
+typer = "^0.7.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"

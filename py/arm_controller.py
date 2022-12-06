@@ -59,4 +59,4 @@ if __name__ == "__main__":
     with ArmController() as arm_controller:
         if arm_controller.is_connected():
             arm_controller.reset()
-            arm_controller.move_to(90, 180)
+            arm_controller.move_to(-45, 0)

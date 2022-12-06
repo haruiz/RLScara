@@ -8,13 +8,14 @@ def plot_episode_stats(
     episode_lengths: typing.List,
     episode_rewards: typing.List,
     smoothing_window: int = 10,
+    title: str = "Episode Statistics",
 ):
     """
     Plot the episode length over time
     """
 
     # Plot the episode length over time
-    fig = plt.figure(figsize=(20, 10))
+    fig = plt.figure(figsize=(10, 5))
 
     ax = fig.add_subplot(1, 2, 1)
     ax.plot(episode_lengths)
@@ -38,5 +39,6 @@ def plot_episode_stats(
         )
     )
 
+    plt.suptitle(title)
     fig.savefig("plot.png")
     plt.show()

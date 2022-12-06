@@ -1,35 +1,42 @@
-from arm_env import Arm, ArmSimViewer
-from math_utils import *
-
-# helpers
-from arm_rl_model import DDPG
-from plot_utils import plot_episode_stats
 import pyglet
 
-ON_TRAIN = False
+from arm_env import Arm, ArmSimViewer
+from arm_rl_model import DDPG
+from color_utils import ColorUtils
+from math_utils import *
+from plot_utils import plot_episode_stats
+import typer
 
-# set env
-env_size = Size2D(300, 300)  # max spawn of the arm
-arm_origin = Point2D(env_size.width / 2, 0)
-
-# set arm
-env = Arm(arm_origin, env_size=env_size, link_width=10)
-env.add_link(100, (255, 0, 0))
-env.add_link(100, (0, 255, 0))
-
-
-# set model
+# ****** parameters ******#
+ENV_SIZE = Size2D(300, 300)
+ARM_ORIGIN = Point2D(ENV_SIZE.width / 2, 0)
+N_LINKS = 2
+LINK_LENGTH = 100
 MAX_EPISODES = 900
-MAX_EP_STEPS = 200
-# get model params from th environment
+MAX_EP_STEPS = 300
+
+# ****** arm setup ******#
+env = Arm(ARM_ORIGIN, env_size=ENV_SIZE, link_width=10)
+colors_dict = ColorUtils.rainbow(n=N_LINKS)
+R = colors_dict["r"]
+G = colors_dict["g"]
+B = colors_dict["b"]
+rainbow_colors = list(zip(B, G, R))
+for i in range(N_LINKS):
+    env.add_link(LINK_LENGTH, rainbow_colors[i])
+env.set_angles(*len(env.links) * [0])
+
+# ****** model setup ******#
 s_dim = env.state_dim
 a_dim = env.action_dim
 a_bound = env.action_bound
 rl_model = DDPG(a_dim, s_dim, a_bound)
 
-steps = []
+
+app = typer.Typer()
 
 
+@app.command()
 def train():
     """This function performs the training of the model"""
     reward_values = []
@@ -57,9 +64,14 @@ def train():
                 break
 
     rl_model.save()
-    plot_episode_stats(steps_list, reward_values)
+    plot_episode_stats(
+        steps_list,
+        reward_values,
+        title=f"DDPG on Arm Environment: N-links {len(env.links)}, Env Size: {ENV_SIZE.width} * {ENV_SIZE.height}",
+    )
 
 
+@app.command()
 def eval():
     """This function performs the evaluation of the model"""
 
@@ -86,17 +98,15 @@ def eval():
             break
 
 
+@app.command()
 def render():
     """
     Renders the environment using the pyglet based viewer.
     """
     rl_model.restore()
-    ArmSimViewer(env, rl_model, env_size)
+    ArmSimViewer(env, rl_model, ENV_SIZE)
     pyglet.app.run()
 
 
-if __name__ == '__main__':
-    if ON_TRAIN:
-        train()
-    else:
-        render()
+if __name__ == "__main__":
+    app()

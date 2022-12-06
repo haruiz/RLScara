@@ -186,10 +186,11 @@ arduino_utils    </h1>
 </span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>
 </span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>
 </span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>    <span class="k">with</span> <span class="n">SerialPort</span><span class="p">(</span><span class="n">SerialPort</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="mi">9600</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">port</span><span class="p">:</span>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>        <span class="k">if</span> <span class="n">port</span><span class="o">.</span><span class="n">is_open</span><span class="p">():</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>            <span class="n">port</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;90,90&quot;</span><span class="p">)</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>            <span class="nb">print</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>    <span class="nb">print</span><span class="p">(</span><span class="n">SerialPort</span><span class="o">.</span><span class="n">available_ports</span><span class="p">())</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>    <span class="k">with</span> <span class="n">SerialPort</span><span class="p">(</span><span class="s2">&quot;/dev/cu.usbmodem141112401&quot;</span><span class="p">,</span> <span class="mi">9600</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">port</span><span class="p">:</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>        <span class="k">if</span> <span class="n">port</span><span class="o">.</span><span class="n">is_open</span><span class="p">():</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>            <span class="n">port</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;90,90&quot;</span><span class="p">)</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>            <span class="nb">print</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
 </span></pre></div>
 
 

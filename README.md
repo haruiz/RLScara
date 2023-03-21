@@ -29,7 +29,7 @@ For this project, we have also developed a digital twin environment of the Scara
 ![Digital Twin](./media/images/env.png)
 
 
-All the documentation can be found here: [docs](https://haruiz.github.io/rl-project)
+All the documentation can be found here: [docs](https://haruiz.github.io/RLScara/)
 
 ### Project Layout
 
